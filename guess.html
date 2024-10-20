@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #4CAF50; /* Game-themed green background */
+        }
+        
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #333;
+        }
+        
+        input {
+            padding: 10px;
+            width: 200px;
+            margin: 10px 0;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #FF5733; /* Game-themed button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #C70039; /* Darker shade on hover */
+        }
+        
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        #score {
+            font-size: 20px;
+            margin-top: 10px;
+            color: #FF5733; /* Score color */
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 Guess the Number Game 🎮</h1>
+        <p>Guess a number between 1 and 10:</p>
+        <input type="number" id="guessInput" placeholder="Enter your guess" min="1" max="10">
+        <button onclick="checkGuess()">Guess</button>
+        <p id="result"></p>
+        <p id="score">Score: 10</p>
+    </div>
+    <script src="script.js"></script>
+</body>
+<script>
+    // Generate a random number between 1 and 100
+let randomNumber = Math.floor(Math.random() * 10) + 1;
+let score = 10; // Starting score
+
+// Function to check the user's guess
+function checkGuess() {
+    const guess = parseInt(document.getElementById("guessInput").value);
+    const result = document.getElementById("result");
+    const scoreDisplay = document.getElementById("score");
+
+    if (score <= 0) {
+        alert("Game Over! Your score is 0. Refresh the page to try again.");
+        return;
+    }
+
+    if (guess < randomNumber) {
+        result.textContent = "Too low! Try again.";
+        score -= 1; // Subtract score for wrong guess
+    } else if (guess > randomNumber) {
+        result.textContent = "Too high! Try again.";
+        score -= 1; // Subtract score for wrong guess
+    } else {
+        alert(`Congratulations! You guessed it! Your final score is ${score}.`);
+        document.querySelector("button").disabled = true; // Disable the button after correct guess
+        return;
+    }
+
+    // Update score display
+    scoreDisplay.textContent = `Score: ${score}`;
+
+    if (score <= 0) {
+        alert("Game Over! You've run out of points. Refresh the page to try again.");
+        document.querySelector("button").disabled = true; // Disable button on game over
+    }
+}
+
+</script>
+</html> 
